@@ -1,6 +1,6 @@
 import {Request} from 'express'
-import {UserDocument} from '../users/user.schema'
+import {UserDto} from '../users/dto/user.dto'
 
 export interface RequestWithUser extends Request {
-  user: UserDocument
+  user: UserDto
 }

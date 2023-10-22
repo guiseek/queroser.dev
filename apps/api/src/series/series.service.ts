@@ -3,8 +3,8 @@ import {Injectable} from '@nestjs/common'
 import {InjectModel} from '@nestjs/mongoose'
 import {Series, SeriesDocument} from './series.schema'
 import {NotFoundException} from '@nestjs/common'
-import SeriesDto from './dto/series.dto'
-import {User} from '../users/user.schema'
+import {SeriesDto} from './dto/series.dto'
+import {UserDto} from '../users/dto/user.dto'
 
 @Injectable()
 export class SeriesService {
@@ -24,7 +24,7 @@ export class SeriesService {
     return series
   }
 
-  create(seriesData: SeriesDto, author: User) {
+  create(seriesData: SeriesDto, author: UserDto) {
     const createdSeries = new this.seriesModel({
       ...seriesData,
       author,

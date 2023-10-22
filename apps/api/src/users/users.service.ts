@@ -2,7 +2,7 @@ import {Injectable, NotFoundException} from '@nestjs/common'
 import {InjectModel} from '@nestjs/mongoose'
 import {UserDocument, User} from './user.schema'
 import {CreateUserDto} from './dto/create-user.dto'
-import {PostsService} from '../posts/posts.service'
+import {CoursesService} from '../courses/courses.service'
 import {InjectConnection} from '@nestjs/mongoose'
 import {Model, Connection} from 'mongoose'
 
@@ -10,13 +10,13 @@ import {Model, Connection} from 'mongoose'
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-    private readonly postsService: PostsService,
+    private readonly coursesService: CoursesService,
     @InjectConnection() private readonly connection: Connection
   ) {}
 
   async getByEmail(email: string) {
     const user = await this.userModel.findOne({email}).populate({
-      path: 'posts',
+      path: 'courses',
       populate: {
         path: 'categories',
       },
@@ -31,7 +31,7 @@ export class UsersService {
 
   async getById(id: string) {
     const user = await this.userModel.findById(id).populate({
-      path: 'posts',
+      path: 'courses',
       populate: {
         path: 'categories',
       },
@@ -47,7 +47,7 @@ export class UsersService {
   async create(userData: CreateUserDto) {
     const createdUser = new this.userModel(userData)
     await createdUser.populate({
-      path: 'posts',
+      path: 'courses',
       populate: {
         path: 'categories',
       },
@@ -63,16 +63,16 @@ export class UsersService {
     try {
       const user = await this.userModel
         .findByIdAndDelete(userId)
-        .populate('posts')
+        .populate('courses')
         .session(session)
 
       if (!user) {
         throw new NotFoundException()
       }
-      const posts = user.posts
+      const courses = user.courses
 
-      await this.postsService.deleteMany(
-        posts.map((post) => post._id.toString()),
+      await this.coursesService.deleteMany(
+        courses.map((course) => course._id.toString()),
         session
       )
       await session.commitTransaction()

@@ -1,0 +1,53 @@
+body {
+  .mat-mdc-card {
+    overflow: hidden;
+  }
+
+  .mat-mdc-form-field {
+    // width: 100%;
+    flex: 1;
+  }
+
+  .mat-mdc-row,
+  .mat-mdc-header-row,
+  .mdc-data-table__content {
+    font-size: unset;
+  }
+
+  .mat-vertical-content {
+    padding: 24px;
+  }
+
+  .mat-mdc-form-field-hint-end,
+  .mat-mdc-form-field-error {
+    font-size: 90%;
+  }
+
+  .mat-mdc-card-title {
+    opacity: 0.6;
+  }
+
+  .mat-mdc-button-base {
+    font-size: 0.9rem;
+  }
+
+  .cdk-column-select {
+    width: 60px;
+  }
+
+  .cdk-column-actions {
+    justify-content: flex-end;
+    max-width: 130px;
+    width: 130px;
+  }
+
+  .cdk-column-createdAt,
+  .cdk-column-updatedAt {
+    width: 200px;
+  }
+
+  .cdk-column-id {
+    max-width: 120px;
+    white-space: nowrap;
+  }
+}

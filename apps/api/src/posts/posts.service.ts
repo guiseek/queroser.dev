@@ -3,9 +3,9 @@ import {Injectable} from '@nestjs/common'
 import {InjectModel} from '@nestjs/mongoose'
 import {Post, PostDocument} from './post.schema'
 import {NotFoundException} from '@nestjs/common'
-import {PostDto} from './dto/post.dto'
-import {User} from '../users/user.schema'
 import {UpdatePostDto} from './dto/update-post.dto'
+import {UserDto} from '../users/dto/user.dto'
+import {PostDto} from './dto/post.dto'
 
 @Injectable()
 export class PostsService {
@@ -61,7 +61,7 @@ export class PostsService {
     return post
   }
 
-  async create(postData: PostDto, author: User) {
+  async create(postData: PostDto, author: UserDto) {
     const createdPost = new this.postModel({
       ...postData,
       author,
@@ -89,10 +89,7 @@ export class PostsService {
     }
   }
 
-  async deleteMany(
-    ids: string[],
-    session: ClientSession | null = null
-  ) {
+  async deleteMany(ids: string[], session: ClientSession | null = null) {
     return this.postModel.deleteMany({_id: ids}).session(session)
   }
 }

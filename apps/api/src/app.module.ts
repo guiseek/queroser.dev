@@ -2,8 +2,7 @@ import {ConfigModule, ConfigService} from '@nestjs/config'
 import {MongooseModule} from '@nestjs/mongoose'
 import {Module} from '@nestjs/common'
 import {CategoriesModule} from './categories/categories.module'
-import {SeriesModule} from './series/series.module'
-import {PostsModule} from './posts/posts.module'
+import {CoursesModule} from './courses/courses.module'
 import {AuthModule} from './auth/auth.module'
 import Joi from '@hapi/joi'
 
@@ -34,8 +33,7 @@ import Joi from '@hapi/joi'
     }),
     AuthModule,
     CategoriesModule,
-    SeriesModule,
-    PostsModule,
+    CoursesModule,
   ],
 })
 export class AppModule {}

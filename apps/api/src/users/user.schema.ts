@@ -1,8 +1,7 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose'
-import {Document, ObjectId} from 'mongoose'
-import {Exclude, Transform, Type} from 'class-transformer'
 import {Address, AddressSchema} from './address.schema'
-import {Post} from '../posts/post.schema'
+import {Course} from '../courses/course.schema'
+import {Document} from 'mongoose'
 
 export type UserDocument = User & Document
 
@@ -13,8 +12,8 @@ export type UserDocument = User & Document
   },
 })
 export class User {
-  @Transform(({value}) => value.toString())
-  _id: ObjectId
+  // @Transform(({value}) => value.toString())
+  // _id: ObjectId
 
   @Prop({unique: true})
   email: string
@@ -28,15 +27,12 @@ export class User {
   fullName: string
 
   @Prop()
-  @Exclude()
   password: string
 
   @Prop({type: AddressSchema})
-  @Type(() => Address)
   address: Address
 
-  @Type(() => Post)
-  posts: Post[]
+  courses: Course[]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)
@@ -47,8 +43,8 @@ UserSchema.virtual('fullName').get(function (this: User) {
   return `${this.firstName} ${this.lastName}`
 })
 
-UserSchema.virtual('posts', {
-  ref: 'Post',
+UserSchema.virtual('courses', {
+  ref: 'Course',
   localField: '_id',
   foreignField: 'author',
 })

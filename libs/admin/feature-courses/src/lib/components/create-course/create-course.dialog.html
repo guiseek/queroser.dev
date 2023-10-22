@@ -1,0 +1,99 @@
+<form [formGroup]="form" (submit)="form.submit()">
+
+  <section class="p-8">
+
+    <mat-form-field class="full">
+      <mat-label> Título </mat-label>
+      <input matInput formControlName="title" />
+      <mat-error> Obrigatório </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full">
+      <mat-label> Introdução </mat-label>
+      <textarea #input matInput cdkFocusInitial cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" formControlName="intro"></textarea>
+      <mat-hint align="end" class="text-muted">{{input.value.length}} / 400</mat-hint>
+      <mat-error> Obrigatório </mat-error>
+    </mat-form-field>
+  </section>
+
+  <mat-selection-list class="full" formControlName="categories">
+    <mat-list-option *ngFor="let category of data.categories" [value]="category.id">
+      {{category.name}}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button>Enviar</button>
+  </mat-dialog-actions>
+</form>
+<!-- <mat-vertical-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="form.controls.title" label="Novo curso">
+    <form [formGroup]="form">
+      <section class="row">
+        <mat-form-field class="col">
+          <mat-label>Título do curso</mat-label>
+          <input #one matInput cdkFocusInitial formControlName="title" placeholder="Ex.: Fundamentos do HTML">
+          <mat-error>O título é obrigatório</mat-error>
+        </mat-form-field>
+      </section>
+
+      <div class="row align-end">
+        <button mat-stroked-button matStepperNext>Continuar</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form.controls.intro" label="Introdução ao curso">
+    <form [formGroup]="form">
+
+      <section class="row">
+        <mat-form-field class="col">
+          <mat-label>Resumo do tema abordado</mat-label>
+          <textarea #input matInput cdkFocusInitial cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="10" formControlName="intro"></textarea>
+        </mat-form-field>
+      </section>
+
+      <div class="row align-end">
+        <button type="button" mat-button matStepperPrevious>Voltar</button>
+        <button type="button" mat-button matStepperNext>Continuar</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form.controls.categories" label="Introdução ao curso">
+    <form [formGroup]="form">
+
+      <section class="row">
+        <mat-selection-list #input class="col" formControlName="categories">
+          <mat-list-option *ngFor="let category of categoryFacade.categories$ | async" [value]="category.id">
+            {{category.name}}
+          </mat-list-option>
+        </mat-selection-list>
+      </section>
+
+      <div class="row align-end">
+        <button mat-button matStepperPrevious>Voltar</button>
+        <button mat-button matStepperNext>Continuar</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Revisão</ng-template>
+
+    <mat-list>
+      <mat-list-item>
+        <h3 matListItemTitle>{{form.value.title}}</h3>
+        <p matListItemLine>Título</p>
+      </mat-list-item>
+      <mat-list-item>
+        <h3 matListItemTitle>{{form.value.intro}}</h3>
+        <p matListItemLine>Introdução</p>
+      </mat-list-item>
+    </mat-list>
+
+    <div>
+      <button mat-button matStepperPrevious>Voltar</button>
+      <button mat-button (click)="stepper.reset()">Salvar</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper> -->

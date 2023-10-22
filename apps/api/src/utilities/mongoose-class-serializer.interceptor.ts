@@ -1,7 +1,7 @@
 import {
-  ClassSerializerInterceptor,
-  PlainLiteralObject,
   Type,
+  PlainLiteralObject,
+  ClassSerializerInterceptor,
 } from '@nestjs/common'
 import {ClassTransformOptions, plainToClass} from 'class-transformer'
 import {Document} from 'mongoose'

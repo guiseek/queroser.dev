@@ -17,9 +17,11 @@ import {JwtAuthGuard} from '../auth/jwt-auth.guard'
 import {RequestWithUser} from '../auth/request-with-user.interface'
 import {MongooseClassSerializerInterceptor} from '../utilities/mongoose-class-serializer.interceptor'
 import {Series} from './series.schema'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('series')
 @Controller('series')
-@UseInterceptors(MongooseClassSerializerInterceptor(Series))
+// @UseInterceptors(MongooseClassSerializerInterceptor(Series))
 export class SeriesController {
   constructor(private readonly seriesService: SeriesService) {}
 

@@ -1,0 +1,12 @@
+<ng-content select="header"></ng-content>
+
+<mat-drawer-container class="dev-shell-container" [hasBackdrop]="hasBackdrop">
+  <mat-drawer class="dev-shell-aside mat-elevation-8" [opened]="service.opened$ | async" [mode]="mode">
+    <ng-content select="aside"></ng-content>
+  </mat-drawer>
+  <mat-drawer-content class="dev-shell-main">
+    <ng-content select="main"></ng-content>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+

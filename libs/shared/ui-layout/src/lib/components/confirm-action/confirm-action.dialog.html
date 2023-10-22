@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>
+  {{data.title}}
+</h1>
+
+<div mat-dialog-content>
+  <div class="row">
+    <ng-container *ngIf="data.icon">
+      <mat-icon [color]="data.color">{{data.icon}}</mat-icon>
+    </ng-container>
+    <div class="col">
+      <p *ngFor="let info of data.infos">{{ info }}</p>
+    </div>
+  </div>
+</div>
+
+<footer mat-dialog-actions class="row align-end">
+  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Cancelar</button>
+  <button mat-stroked-button [mat-dialog-close]="true">Sim</button>
+</footer>

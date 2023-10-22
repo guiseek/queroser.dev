@@ -8,20 +8,20 @@ import {
   Delete,
   UseGuards,
   Controller,
-  UseInterceptors,
+  // UseInterceptors,
 } from '@nestjs/common'
-import {MongooseClassSerializerInterceptor} from '../utilities'
+// import {MongooseClassSerializerInterceptor} from '../utilities'
 import {RequestWithUser} from '../auth/request-with-user.interface'
 import {ParamsWithId} from '../utilities/params-with-id'
 import {CategoriesService} from './categories.service'
 import {JwtAuthGuard} from '../auth/jwt-auth.guard'
 import {CategoryDto} from './dto/category.dto'
-import {Category} from './category.schema'
+// import {Category} from './category.schema'
 import {ApiTags} from '@nestjs/swagger'
 
 @ApiTags('categories')
 @Controller('categories')
-@UseInterceptors(MongooseClassSerializerInterceptor(Category))
+// @UseInterceptors(MongooseClassSerializerInterceptor(Category))
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
@@ -44,16 +44,18 @@ export class CategoriesController {
     return this.categoriesService.create(category, req.user)
   }
 
-  @Delete(':id')
-  async deleteCategory(@Param() {id}: ParamsWithId) {
-    return this.categoriesService.delete(id)
-  }
-
   @Put(':id')
+  @UseGuards(JwtAuthGuard)
   async updateCategory(
     @Param() {id}: ParamsWithId,
     @Body() category: CategoryDto
   ) {
     return this.categoriesService.update(id, category)
+  }
+
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  async deleteCategory(@Param() {id}: ParamsWithId) {
+    return this.categoriesService.delete(id)
   }
 }

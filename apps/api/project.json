@@ -16,7 +16,12 @@
         "tsConfig": "apps/api/tsconfig.app.json",
         "assets": ["apps/api/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/api/webpack.config.js"
+        "webpackConfig": "apps/api/webpack.config.js",
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/ui-layout/src/lib/styles"
+          ]
+        }
       },
       "configurations": {
         "development": {},

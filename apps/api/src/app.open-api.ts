@@ -9,8 +9,12 @@ export const appOpenAPI = (
 ) => {
   const config = new DocumentBuilder()
     .setTitle(`${name}`)
-    .setDescription(`${name} Open API doc`)
+    .setDescription(`${name} Open API`)
     .setVersion(version)
+    .addSecurity('basic', {
+      type: 'http',
+      scheme: 'basic',
+    })
     .build()
 
   const document = SwaggerModule.createDocument(app, config)

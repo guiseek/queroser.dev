@@ -1,0 +1,28 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let course of this.courseFacade.results$ | async">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{course.title}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{course.duration}} minutos previstos
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <article>
+      <img *ngIf="course.icon" [src]="course.icon" [alt]="course.title">
+      <p>{{course.intro}}</p>
+    </article>
+
+    <footer class="row space-between">
+      <button mat-button color="warn" (click)="onRemove(course)">
+        <mat-icon>delete</mat-icon>
+        <span>Apagar</span>
+      </button>
+      <a mat-button [routerLink]="course.id">
+        <mat-icon>read_more</mat-icon>
+        <span>Acessar</span>
+      </a>
+    </footer>
+  </mat-expansion-panel>
+</mat-accordion>

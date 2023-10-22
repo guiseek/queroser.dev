@@ -1,6 +1,6 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common'
-import {TokenPayload} from './token-payload.interface'
 import {MongoError} from '../utilities/mongo-error.enum'
+import {TokenPayload} from './token-payload.interface'
 import {UsersService} from '../users/users.service'
 import {RegisterDto} from './dto/register.dto'
 import {ConfigService} from '@nestjs/config'
@@ -10,27 +10,28 @@ import bcrypt from 'bcrypt'
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly usersService: UsersService,
     private readonly configService: ConfigService
   ) {}
 
   public async register(registrationData: RegisterDto) {
     const hashedPassword = await bcrypt.hash(registrationData.password, 10)
     try {
-      return await this.usersService.create({
+      await this.usersService.create({
         ...registrationData,
         password: hashedPassword,
       })
+      return
     } catch (error) {
       if (error?.code === MongoError.DuplicateKey) {
         throw new HttpException(
-          'User with that email already exists',
+          'Este e-mail já está sendo usado',
           HttpStatus.BAD_REQUEST
         )
       }
       throw new HttpException(
-        'Something went wrong',
+        'Algo estranho aconteceu',
         HttpStatus.INTERNAL_SERVER_ERROR
       )
     }
@@ -54,10 +55,7 @@ export class AuthService {
       await this.verifyPassword(plainTextPassword, user.password)
       return user
     } catch (error) {
-      throw new HttpException(
-        'Wrong credentials provided',
-        HttpStatus.BAD_REQUEST
-      )
+      throw new HttpException('Credenciais inválidas', HttpStatus.BAD_REQUEST)
     }
   }
 
@@ -70,10 +68,7 @@ export class AuthService {
       hashedPassword
     )
     if (!isPasswordMatching) {
-      throw new HttpException(
-        'Wrong credentials provided',
-        HttpStatus.BAD_REQUEST
-      )
+      throw new HttpException('Credenciais inválidas', HttpStatus.BAD_REQUEST)
     }
   }
 }

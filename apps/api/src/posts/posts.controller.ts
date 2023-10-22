@@ -20,9 +20,11 @@ import {Post as PostModel} from './post.schema'
 import {PaginationParams} from '../utilities/pagination-params'
 import {UpdatePostDto} from './dto/update-post.dto'
 import {PostDto} from './dto/post.dto'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('posts')
 @Controller('posts')
-@UseInterceptors(MongooseClassSerializerInterceptor(PostModel))
+// @UseInterceptors(MongooseClassSerializerInterceptor(PostModel))
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 

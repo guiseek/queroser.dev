@@ -1,0 +1,44 @@
+<div class="row">
+
+  <mat-card class="col gap-8 p-8">
+    <h2 mat-card-title>Nova categoria</h2>
+
+    <form [formGroup]="form" (submit)="onSubmit()">
+      <section class="row">
+        <mat-form-field class="col">
+          <mat-label> Nome </mat-label>
+          <input matInput formControlName="name" placeholder="Ex.: html" autofocus />
+          <mat-error> Preencha o nome da categoria </mat-error>
+        </mat-form-field>
+      </section>
+
+      <footer class="row space-between">
+        <button type="reset" mat-button>Limpar</button>
+        <button mat-stroked-button>Enviar</button>
+      </footer>
+    </form>
+
+  </mat-card>
+
+  <mat-card class="col">
+    <mat-card-header>
+      <h2 mat-card-title>Categorias</h2>
+    </mat-card-header>
+
+    <mat-list>
+      <mat-list-item *ngFor="let category of facade.categories$ | async">
+        <h3 matListItemTitle>{{ category.name }}</h3>
+
+        <div matListItemMeta>
+          <button mat-icon-button (click)="onEdit(category)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onRemove(category)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

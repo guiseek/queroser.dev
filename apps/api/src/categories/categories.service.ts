@@ -4,7 +4,7 @@ import {InjectModel} from '@nestjs/mongoose'
 import {Category, CategoryDocument} from './category.schema'
 import {NotFoundException} from '@nestjs/common'
 import {CategoryDto} from './dto/category.dto'
-import {User} from '../users/user.schema'
+import {UserDto} from '../users/dto/user.dto'
 
 @Injectable()
 export class CategoriesService {
@@ -13,18 +13,20 @@ export class CategoriesService {
   ) {}
 
   async findAll() {
-    return this.categoryModel.find().populate('author')
+    return this.categoryModel.find()
+    // .populate('author')
   }
 
   async findOne(id: string) {
-    const category = await this.categoryModel.findById(id).populate('author')
+    const category = await this.categoryModel.findById(id)
+    // .populate('author')
     if (!category) {
       throw new NotFoundException()
     }
     return category
   }
 
-  create(categoryData: CategoryDto, author: User) {
+  create(categoryData: CategoryDto, author: UserDto) {
     const createdCategory = new this.categoryModel({
       ...categoryData,
       author,
@@ -33,17 +35,22 @@ export class CategoriesService {
   }
 
   async update(id: string, categoryData: CategoryDto) {
-    const category = await this.categoryModel
-      .findByIdAndUpdate(id, categoryData)
-      .setOptions({overwrite: true, new: true})
+    const category = await this.categoryModel.findByIdAndUpdate(
+      id,
+      categoryData
+    )
+    // .setOptions({overwrite: true, new: true})
     if (!category) {
       throw new NotFoundException()
     }
     return category
   }
 
-  async delete(categoryId: string) {
-    const result = await this.categoryModel.findByIdAndDelete(categoryId)
+  async delete(id: string) {
+    console.log(id)
+    const result = await this.categoryModel.findByIdAndDelete({_id: id})
+    console.log(result)
+
     if (!result) {
       throw new NotFoundException()
     }
