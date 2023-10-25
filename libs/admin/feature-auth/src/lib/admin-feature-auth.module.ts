@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {RouterModule} from '@angular/router'
+import {ReactiveFormsModule} from '@angular/forms'
 import {
   MaterialFormModule,
   MaterialLayoutModule,
 } from '@queroser.dev/shared/ui-layout'
-import {RegisterComponent, LogInComponent} from './components'
-import {adminFeatureAuthRoutes} from './admin-feature-auth.routes'
+import {SharedFeatureAuthModule} from '@queroser.dev/shared/feature-auth'
 import {AdminFeatureAdminContainer} from './admin-feature-auth.container'
-import { ReactiveFormsModule } from '@angular/forms'
+import {adminFeatureAuthRoutes} from './admin-feature-auth.routes'
 
 @NgModule({
   imports: [
@@ -16,8 +16,9 @@ import { ReactiveFormsModule } from '@angular/forms'
     MaterialFormModule,
     MaterialLayoutModule,
     ReactiveFormsModule,
+    SharedFeatureAuthModule,
     RouterModule.forChild(adminFeatureAuthRoutes),
   ],
-  declarations: [AdminFeatureAdminContainer, RegisterComponent, LogInComponent],
+  declarations: [AdminFeatureAdminContainer],
 })
 export class AdminFeatureAuthModule {}

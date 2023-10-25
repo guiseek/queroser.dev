@@ -55,7 +55,7 @@ export class CoursesService {
   async findOne(id: string) {
     const course = await this.courseModel
       .findById(id)
-      .populate('author')
+      // .populate('author')
       .populate('categories')
     // .populate('series')
     if (!course) {

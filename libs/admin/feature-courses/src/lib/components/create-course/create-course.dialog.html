@@ -4,13 +4,13 @@
 
     <mat-form-field class="full">
       <mat-label> Título </mat-label>
-      <input matInput formControlName="title" />
+      <input matInput cdkFocusInitial formControlName="title" />
       <mat-error> Obrigatório </mat-error>
     </mat-form-field>
 
     <mat-form-field class="full">
       <mat-label> Introdução </mat-label>
-      <textarea #input matInput cdkFocusInitial cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+      <textarea #input matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
         cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" formControlName="intro"></textarea>
       <mat-hint align="end" class="text-muted">{{input.value.length}} / 400</mat-hint>
       <mat-error> Obrigatório </mat-error>
@@ -22,6 +22,8 @@
       {{category.name}}
     </mat-list-option>
   </mat-selection-list>
+
+  <pre>{{form.valid}}</pre>
 
   <mat-dialog-actions align="end">
     <button mat-stroked-button>Enviar</button>

@@ -1,8 +1,8 @@
 import {
   Get,
-  Post,
   Put,
   Req,
+  Post,
   Body,
   Param,
   Delete,
@@ -18,6 +18,9 @@ import {JwtAuthGuard} from '../auth/jwt-auth.guard'
 import {CategoryDto} from './dto/category.dto'
 // import {Category} from './category.schema'
 import {ApiTags} from '@nestjs/swagger'
+import {Roles} from '../shared/decorators'
+import {UserRole} from '@queroser.dev/shared/util-model'
+import {RolesGuard} from '../shared/guards'
 
 @ApiTags('categories')
 @Controller('categories')
@@ -36,7 +39,8 @@ export class CategoriesController {
   }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   async createCategory(
     @Body() category: CategoryDto,
     @Req() req: RequestWithUser
@@ -45,7 +49,8 @@ export class CategoriesController {
   }
 
   @Put(':id')
-  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   async updateCategory(
     @Param() {id}: ParamsWithId,
     @Body() category: CategoryDto
@@ -54,7 +59,8 @@ export class CategoriesController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   async deleteCategory(@Param() {id}: ParamsWithId) {
     return this.categoriesService.delete(id)
   }

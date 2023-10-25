@@ -10,7 +10,7 @@ export class DrawerShellService<T = unknown> {
     this.#items.next(items)
   }
 
-  toggled() {
+  toggle() {
     this.#opened.next(!this.#opened.value)
   }
 }

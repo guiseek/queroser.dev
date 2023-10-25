@@ -1,0 +1,39 @@
+<ng-container *ngIf="user">
+  <span>{{user.firstName}}</span>
+  <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #beforeMenu="matMenu" xPosition="before">
+    <button mat-menu-item disabled>
+      <div class="row space-between">
+        <small>logado como</small>
+        <small>{{user.roles}}</small>
+      </div>
+      <div class="row">{{user.email}}</div>
+    </button>
+    <mat-divider></mat-divider>
+    <ng-container *ngIf="isAdmin">
+      <a mat-menu-item routerLink="/admin">
+        <mat-icon>cast_for_education</mat-icon>
+        <span>Produção</span>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="isLearner">
+      <a mat-menu-item routerLink="/aprenda">
+        <mat-icon>topic</mat-icon>
+        <span>Aprendizado</span>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="isUser">
+      <a mat-menu-item routerLink="/">
+        <mat-icon>folder_special</mat-icon>
+        <span>Conteúdos</span>
+      </a>
+    </ng-container>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logOut.emit()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</ng-container>

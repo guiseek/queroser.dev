@@ -9,51 +9,58 @@ import {
   Delete,
   UseGuards,
   Controller,
-  UseInterceptors,
 } from '@nestjs/common'
 import {CoursesService} from './courses.service'
-import {ParamsWithId} from '../utilities/params-with-id'
 import {JwtAuthGuard} from '../auth/jwt-auth.guard'
 import {RequestWithUser} from '../auth/request-with-user.interface'
-import {MongooseClassSerializerInterceptor} from '../utilities/mongoose-class-serializer.interceptor'
-import {PaginationParams} from '../utilities/pagination-params'
-import {UpdateCourseDto} from './dto/update-course.dto'
-import {CourseDto} from './dto/course.dto'
-import {Course} from './course.schema'
-import {ApiTags} from '@nestjs/swagger'
+import {ParamsWithId, PaginationParams} from '../utilities'
+import {UserRole} from '@queroser.dev/shared/util-model'
+import {CourseDto, UpdateCourseDto} from './dto'
+import {Roles} from '../shared/decorators'
+import {ApiCookieAuth, ApiTags} from '@nestjs/swagger'
+import { RolesGuard } from '../shared/guards'
 
+@ApiCookieAuth()
 @ApiTags('courses')
 @Controller('courses')
 // @UseInterceptors(MongooseClassSerializerInterceptor(Course))
 export class CoursesController {
-  constructor(private readonly postsService: CoursesService) {}
+  constructor(private readonly coursesService: CoursesService) {}
 
   @Get()
-  async getAllPosts(
+  async getAllCourses(
     @Query() {skip, limit, startId}: PaginationParams,
     @Query('searchQuery') searchQuery = ''
   ) {
-    return this.postsService.findAll(skip, limit, startId, searchQuery)
+    return this.coursesService.findAll(skip, limit, startId, searchQuery)
   }
 
   @Get(':id')
-  async getPost(@Param() {id}: ParamsWithId) {
-    return this.postsService.findOne(id)
+  async getCourse(@Param() {id}: ParamsWithId) {
+    return this.coursesService.findOne(id)
   }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
-  async createPost(@Body() post: CourseDto, @Req() req: RequestWithUser) {
-    return this.postsService.create(post, req.user)
+  @Roles(UserRole.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async createCourse(@Body() course: CourseDto, @Req() req: RequestWithUser) {
+    return this.coursesService.create(course, req.user)
   }
 
   @Delete(':id')
-  async deletePost(@Param() {id}: ParamsWithId) {
-    return this.postsService.delete(id)
+  @Roles(UserRole.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async deleteCourse(@Param() {id}: ParamsWithId) {
+    return this.coursesService.delete(id)
   }
 
   @Put(':id')
-  async updatePost(@Param() {id}: ParamsWithId, @Body() post: UpdateCourseDto) {
-    return this.postsService.update(id, post)
+  @Roles(UserRole.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async updateCourse(
+    @Param() {id}: ParamsWithId,
+    @Body() course: UpdateCourseDto
+  ) {
+    return this.coursesService.update(id, course)
   }
 }

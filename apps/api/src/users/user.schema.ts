@@ -2,6 +2,8 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose'
 import {Address, AddressSchema} from './address.schema'
 import {Course} from '../courses/course.schema'
 import {Document} from 'mongoose'
+import {UserRole} from '@queroser.dev/shared/util-model'
+import { Exclude } from 'class-transformer'
 
 export type UserDocument = User & Document
 
@@ -27,10 +29,16 @@ export class User {
   fullName: string
 
   @Prop()
+  @Exclude()
   password: string
 
   @Prop({type: AddressSchema})
   address: Address
+
+  @Prop({
+    default: 'user',
+  })
+  roles: UserRole[]
 
   courses: Course[]
 }

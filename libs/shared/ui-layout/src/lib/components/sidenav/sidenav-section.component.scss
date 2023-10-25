@@ -1,0 +1,70 @@
+@use '../../styles/palette' as palette;
+@use 'sass:map' as map;
+
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .mat-expansion-panel {
+    background-color: map.get(palette.$primary, 500);
+
+    .mat-mdc-nav-list {
+      padding: 0;
+
+      .mat-mdc-list-item {
+        padding-left: 36px;
+      }
+    }
+
+    .mat-mdc-list-item {
+      mat-icon {
+        color: map.get(palette.$accent, 400);
+        transition: color 200ms ease-in-out;
+      }
+
+      span {
+        color: map.get(palette.$primary, contrast, 500);
+        transition: color 200ms ease-in-out;
+      }
+
+      transition: background-color 200ms ease-in-out;
+
+      &.active {
+        z-index: 5;
+        background-color: map.get(palette.$primary, 900);
+
+        mat-icon {
+          color: map.get(palette.$primary, contrast, 400);
+        }
+
+        span {
+          color: map.get(palette.$accent, 400);
+        }
+      }
+
+      &:hover {
+        background-color: map.get(palette.$primary, 700);
+      }
+    }
+
+    ::ng-deep {
+      .mat-expansion-panel-body {
+        padding: 0;
+      }
+      .mat-expansion-panel-header-title,
+      .mdc-list-item__primary-text,
+      .mat-expansion-indicator::after {
+        color: map.get(palette.$primary, contrast, 500);
+      }
+
+      .mat-expansion-panel-header-title {
+        opacity: 0.6;
+      }
+    }
+
+    &:not([class*='mat-elevation-z']) {
+      box-shadow: none;
+    }
+  }
+}

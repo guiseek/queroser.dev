@@ -1,8 +1,8 @@
+import {CreateCourse, CreateCourseData} from '@queroser.dev/shared/util-model'
 import {inject, Component, ChangeDetectionStrategy} from '@angular/core'
-import {CreateCourseData} from '@queroser.dev/shared/util-model'
-import {CreateCourseForm, CreateCourseGroup} from '../../forms'
 import {MAT_DIALOG_DATA} from '@angular/material/dialog'
 import {FormDialog} from '@queroser.dev/shared/ui-forms'
+import {CreateCourseForm} from '../../forms'
 
 @Component({
   selector: 'admin-create-course',
@@ -10,7 +10,7 @@ import {FormDialog} from '@queroser.dev/shared/ui-forms'
   styleUrls: ['./create-course.dialog.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateCourseDialog extends FormDialog<CreateCourseGroup> {
+export class CreateCourseDialog extends FormDialog<CreateCourse> {
   form = new CreateCourseForm()
   data = inject<CreateCourseData>(MAT_DIALOG_DATA)
 }

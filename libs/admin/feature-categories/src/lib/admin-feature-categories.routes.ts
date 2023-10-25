@@ -4,6 +4,9 @@ import { AdminFeatureCategoriesContainer } from './admin-feature-categories.cont
 export const adminFeatureCategoriesRoutes: Route[] = [
   {
     path: '',
-    component: AdminFeatureCategoriesContainer
+    component: AdminFeatureCategoriesContainer,
+    data: {
+      breadcrumb: 'Categorias'
+    },
   }
 ]

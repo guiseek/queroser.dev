@@ -1,50 +1,6 @@
-@use 'libs/shared/ui-layout/src/lib/styles/palette' as palette;
-@use 'sass:map' as map;
-
 :host {
   flex: 1;
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  .app-logo {
-    display: inline-flex;
-    height: 96px;
-    z-index: 10;
-  }
-
-  .mat-mdc-nav-list {
-    padding: 0;
-  }
-
-  .mat-mdc-list-item {
-    mat-icon {
-      color: map.get(palette.$accent, 400);
-      transition: color 200ms ease-in-out;
-    }
-
-    span {
-      color: map.get(palette.$primary, contrast, 500);
-      transition: color 200ms ease-in-out;
-    }
-
-    transition: background-color 200ms ease-in-out;
-
-    &.active {
-      z-index: 5;
-      background-color: map.get(palette.$primary, 900);
-
-      mat-icon {
-        color: map.get(palette.$primary, contrast, 400);
-      }
-
-      span {
-        color: map.get(palette.$accent, 400);
-      }
-    }
-
-    &:hover {
-      background-color: map.get(palette.$primary, 700);
-    }
-  }
 }

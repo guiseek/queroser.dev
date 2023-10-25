@@ -27,14 +27,26 @@
       "@queroser.dev/admin/feature-courses": [
         "libs/admin/feature-courses/src/index.ts"
       ],
-      "@queroser.dev/admin/feature-posts": [
-        "libs/admin/feature-posts/src/index.ts"
-      ],
       "@queroser.dev/admin/feature-shell": [
         "libs/admin/feature-shell/src/index.ts"
       ],
+      "@queroser.dev/learner/feature-shell": [
+        "libs/learner/feature-shell/src/index.ts"
+      ],
+      "@queroser.dev/portal/feature-home": [
+        "libs/portal/feature-home/src/index.ts"
+      ],
+      "@queroser.dev/portal/feature-shell": [
+        "libs/portal/feature-shell/src/index.ts"
+      ],
       "@queroser.dev/shared/data-access": [
         "libs/shared/data-access/src/index.ts"
+      ],
+      "@queroser.dev/shared/feature-auth": [
+        "libs/shared/feature-auth/src/index.ts"
+      ],
+      "@queroser.dev/shared/feature-course": [
+        "libs/shared/feature-course/src/index.ts"
       ],
       "@queroser.dev/shared/ui-forms": ["libs/shared/ui-forms/src/index.ts"],
       "@queroser.dev/shared/ui-layout": ["libs/shared/ui-layout/src/index.ts"],

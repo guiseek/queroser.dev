@@ -1,7 +1,11 @@
 import {Store} from '@queroser.dev/shared/data-access'
-import {Course, CreateCourse} from '@queroser.dev/shared/util-model'
+import {
+  Course,
+  CreateCourse,
+  UpdateCourse,
+} from '@queroser.dev/shared/util-model'
 import {CourseService} from '../ports'
-import {take} from 'rxjs'
+import {map, take, tap} from 'rxjs'
 
 interface CourseState {
   course: Course | null
@@ -41,6 +45,16 @@ export class CourseFacade extends Store(initialValue) {
     })
   }
 
+  findOne(id: string) {
+    return this.courseService.findOne(id).pipe(
+      map((course) => {
+        this.setCourse(course)
+        return course
+      }),
+      take(1)
+    )
+  }
+
   create(value: CreateCourse) {
     const course$ = this.courseService.create(value).pipe(take(1))
     course$.subscribe((course) => {
@@ -49,12 +63,16 @@ export class CourseFacade extends Store(initialValue) {
     })
   }
 
-  update({id, ...value}: Course) {
+  update({id, ...value}: UpdateCourse) {
     const course$ = this.courseService.update(id, value).pipe(take(1))
     course$.subscribe((course) => {
       this.setState({course})
       this.loadAll()
     })
+  }
+
+  setCourse = (course: Course | null) => {
+    this.setState({course})
   }
 
   remove(id: string) {

@@ -1,3 +1,18 @@
+import {Category} from '../category'
+import {User} from '../user'
+
+export interface CourseProgress {
+  currentStep: number
+  completed: number
+}
+
+export interface CourseStep {
+  order: number
+  title: string
+  subtitle: string
+  content: string
+}
+
 export interface Course {
   id: string
   title: string
@@ -5,9 +20,10 @@ export interface Course {
   intro: string
   icon?: string
   duration: number
-  // categories: Category[]
-  // steps: CourseStep[]
-  // progress: CourseProgress
-  // author: User
-  // categories: Category[]
+  steps: CourseStep[]
+  progress: CourseProgress
+  categories: Category[]
+  author: User
+  createdAt: Date
+  updatedAt: Date
 }

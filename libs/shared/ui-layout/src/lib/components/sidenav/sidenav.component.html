@@ -1,0 +1,6 @@
+<ng-container *ngFor="let section of sections; last as lastSection">
+  <dev-sidenav-section [section]="section"></dev-sidenav-section>
+
+  <mat-divider *ngIf="!lastSection"></mat-divider>
+
+</ng-container>

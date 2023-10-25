@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <button *ngIf="showToggleMenu" type="button" mat-icon-button (click)="drawerService.toggle()">
+    <mat-icon>menu_open</mat-icon>
+  </button>
+
+  <a class="app-logo" routerLink="/">
+    <img src="assets/logo.svg" alt="Quero Ser Dev">
+  </a>
+
+  <a routerLink="/">
+    Quero Ser Dev
+  </a>
+  
+  <ng-content select="h1"></ng-content>
+
+  <span class="spacer"></span>
+
+  <ng-content select="button,a"></ng-content>
+  
+  <ng-content select="dev-toolbar-menu"></ng-content>
+</mat-toolbar>

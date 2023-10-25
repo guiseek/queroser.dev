@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-header>
+    <img mat-card-avatar [src]="course.icon" [alt]="course.title" />
+    <h2 mat-card-title>{{ course.title }}</h2>
+    <h3 mat-card-subtitle>{{ course.updatedAt | date }}</h3>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="text-muted">{{ course.intro }}</p>
+  </mat-card-content>
+
+  <mat-card-content class="flex-1">
+    <mat-list>
+      <mat-list-item>
+        <mat-icon matListItemIcon>watch_later</mat-icon>
+        <div matListItemTitle>{{ course.duration }} minutos</div>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>school</mat-icon>
+        <div matListItemTitle [ngPlural]="course.progress.completed">
+          <ng-template ngPluralCase="=0">Em andamento</ng-template>
+          <ng-template ngPluralCase="=1">Concluído 1 vez</ng-template>
+          <ng-template ngPluralCase="=2">Concluído 2 vezes</ng-template>
+          <ng-template ngPluralCase="=3">Concluído 3 vezes</ng-template>
+          <ng-template ngPluralCase="few">Concluído {{ course.progress.completed }} vezes
+          </ng-template>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+
+  <div
+    class="course-progress"
+    [matTooltip]="formatLabel(course) | percent | stringify"
+    [matTooltipPosition]="'above'">
+    <mat-progress-bar [value]="(100 * course.progress.currentStep) / course.steps.length"></mat-progress-bar>
+  </div>
+
+  <mat-card-actions class="space-between">
+    <mat-chip color="accent" [highlighted]="true" *ngFor="let category of course.categories">
+      {{ category.name }}
+    </mat-chip>
+
+    <a mat-button [routerLink]="['/', 'curso', course.slug]">
+      <span>Continuar</span>
+      <mat-icon>arrow_forward</mat-icon>
+    </a>
+  </mat-card-actions>
+</mat-card>

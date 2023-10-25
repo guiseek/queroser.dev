@@ -1,6 +1,6 @@
 export interface CreateCourse {
   title: string
   intro: string
-  icon?: string
-  categories: string[]
+  icon: string | null
+  categories: string
 }

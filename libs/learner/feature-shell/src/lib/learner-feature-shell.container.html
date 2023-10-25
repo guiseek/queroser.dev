@@ -1,0 +1,20 @@
+<dev-drawer-shell [hasBackdrop]="false">
+
+  <dev-toolbar>
+    <h1>Aprendizado</h1>
+
+    <button type="button" mat-icon-button>
+      <mat-icon>notifications</mat-icon>
+    </button>
+
+    <dev-toolbar-menu [user]="authFacade.user$ | async" (logOut)="authFacade.logOut()"></dev-toolbar-menu>
+  </dev-toolbar>
+  
+  <dev-breadcrumb></dev-breadcrumb>
+
+  <dev-sidenav [sections]="sections"></dev-sidenav>
+  
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</dev-drawer-shell>

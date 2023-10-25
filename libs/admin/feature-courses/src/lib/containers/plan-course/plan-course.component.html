@@ -1,0 +1,38 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+
+  <mat-card>
+
+    <section class="p-8">
+
+      <mat-form-field class="full">
+        <mat-label> Título </mat-label>
+        <input matInput cdkFocusInitial formControlName="title" />
+        <mat-error> Obrigatório </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full">
+        <mat-label> Introdução </mat-label>
+        <textarea #input matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="10" formControlName="intro"></textarea>
+        <mat-hint align="end" class="text-muted">{{input.value.length}} / 400</mat-hint>
+        <mat-error> Obrigatório </mat-error>
+      </mat-form-field>
+    </section>
+
+    <mat-selection-list formControlName="categories" class="full">
+      <mat-list-option *ngFor="let category of categoryFacade.categories$ | async" [value]="category.id">
+        {{category.name}}
+      </mat-list-option>
+    </mat-selection-list>
+
+    <mat-card-actions align="end">
+      <button mat-stroked-button>Enviar</button>
+    </mat-card-actions>
+
+  </mat-card>
+
+
+  <pre>{{form.value | json}}</pre>
+
+
+</form>

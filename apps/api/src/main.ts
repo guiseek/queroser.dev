@@ -11,7 +11,6 @@ async function bootstrap() {
   const prefix = 'api'
   app.setGlobalPrefix(prefix)
   app.useGlobalPipes(new ValidationPipe({transform: true}))
-  // app.useGlobalFilters(new HttpExceptionFilter())
   app.use(cookieParser())
 
   appOpenAPI(app, 'quero ser .dev')

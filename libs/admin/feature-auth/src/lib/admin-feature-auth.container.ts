@@ -5,8 +5,12 @@ import {
   ViewChild,
   ChangeDetectionStrategy,
 } from '@angular/core'
-import {LogInComponent, RegisterComponent} from './components'
-import {AuthFacade} from '@queroser.dev/admin/data-access'
+import {
+  LogInComponent,
+  RegisterComponent,
+} from '@queroser.dev/shared/feature-auth'
+import {hasRole} from '@queroser.dev/shared/util-model'
+import {AuthFacade} from '@queroser.dev/shared/data-access'
 import {BehaviorSubject, Subject, takeUntil} from 'rxjs'
 import {FormGroup} from '@angular/forms'
 import {Router} from '@angular/router'
@@ -34,30 +38,33 @@ export class AdminFeatureAdminContainer implements OnInit {
   destroy = new Subject<void>()
 
   ngOnInit() {
-    // this.facade.check().subscribe()
+    const user$ = this.facade.user$.pipe(takeUntil(this.destroy))
+    const action$ = this.facade.action$.pipe(takeUntil(this.destroy))
 
-    this.facade.action$.pipe(takeUntil(this.destroy)).subscribe((action) => {
-      if (action === 'login') {
-        this.onSelectedIndexChange(0)
+    user$.subscribe((user) => {
+      if (user) {
+        let initialRoute = '/'
+
+        if (hasRole(user, 'admin')) {
+          initialRoute = '/admin'
+        } else if (hasRole(user, 'learner')) {
+          initialRoute = '/aprenda'
+        }
+
+        this.destroy.next()
+        this.destroy.complete()
+        this.router.navigate([initialRoute])
       }
     })
 
-    this.facade.user$.pipe(takeUntil(this.destroy)).subscribe((user) => {
-      if (user) {
-        this.destroy.next()
-        this.destroy.complete()
-
-        console.log(user);
-        
-
-        this.router.navigate(['/', 'admin', 'cursos'])
+    action$.subscribe((action) => {
+      if (action === 'login') {
+        this.onSelectedIndexChange(0)
       }
     })
   }
 
   onSelectedIndexChange(index: number) {
-    console.log(index)
-
     this.#tabIndex.next(index)
   }
 

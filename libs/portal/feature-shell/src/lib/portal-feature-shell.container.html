@@ -1,0 +1,12 @@
+<dev-toolbar>
+  <h1>Conteúdos</h1>
+  
+  <dev-toolbar-menu
+    [user]="authFacade.user$ | async"
+    (logOut)="authFacade.logOut()"
+  ></dev-toolbar-menu>
+</dev-toolbar>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

@@ -1,12 +1,15 @@
 import {AdminFeatureShellContainer} from './admin-feature-shell.container'
+import {roleGuard} from '@queroser.dev/shared/feature-auth'
 import {Route} from '@angular/router'
-import {adminGuard} from './guards'
 
 export const adminFeatureShellRoutes: Route[] = [
   {
     path: '',
     component: AdminFeatureShellContainer,
-    canActivate: [adminGuard],
+    canActivate: [roleGuard('admin')],
+    data: {
+      breadcrumb: 'Admin',
+    },
     children: [
       {
         path: 'cursos',
@@ -23,17 +26,10 @@ export const adminFeatureShellRoutes: Route[] = [
           ),
       },
       {
-        path: 'posts',
-        loadChildren: () =>
-          import('@queroser.dev/admin/feature-posts').then(
-            (m) => m.AdminFeaturePostsModule
-          ),
-      },
-      {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'cursos'
-      }
+        redirectTo: 'cursos',
+      },
     ],
   },
   {

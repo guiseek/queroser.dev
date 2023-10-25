@@ -1,12 +1,16 @@
-import {TypedForm} from '../types/typed-form'
-import {AbstractControl, FormGroup} from '@angular/forms'
+import {TypedForm, TypedFormGroup} from '../types/typed-form'
+import {FormGroup} from '@angular/forms'
 import {Subject} from 'rxjs'
 
-export class FormGroupBase<
-  T extends Record<string, AbstractControl>
-> extends FormGroup<T> {
+export class FormGroupBase<T extends object> extends FormGroup<
+  TypedFormGroup<T>
+> {
   #submitted = new Subject<T>()
   submitted$ = this.#submitted.asObservable()
+
+  getValue() {
+    return this.getRawValue() as T
+  }
 
   submit() {
     if (this.valid) {
@@ -17,7 +21,7 @@ export class FormGroupBase<
   }
 }
 
-export class TypedFormGroupBase<T> extends FormGroupBase<TypedForm<T>> {
+export class TypedFormGroupBase<T extends object> extends FormGroupBase<T> {
   constructor(controls: TypedForm<T>) {
     super(controls)
   }

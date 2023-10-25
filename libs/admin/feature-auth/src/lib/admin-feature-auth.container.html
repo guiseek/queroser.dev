@@ -4,12 +4,12 @@
       (selectedIndexChange)="onSelectedIndexChange($event)" (animationDone)="onTabChanged()">
       <mat-tab label="Login">
         <ng-template matTabContent>
-          <admin-log-in (logInChange)="facade.logIn($event)"></admin-log-in>
+          <auth-log-in (logInChange)="facade.logIn($event)"></auth-log-in>
         </ng-template>
       </mat-tab>
       <mat-tab label="Nova conta">
         <ng-template matTabContent>
-          <admin-register (registerChange)="facade.register($event)"></admin-register>
+          <auth-register (registerChange)="facade.register($event)"></auth-register>
         </ng-template>
       </mat-tab>
     </mat-tab-group>

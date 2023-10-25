@@ -1,0 +1,34 @@
+{
+  "name": "learner-feature-shell",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/learner/feature-shell/src",
+  "prefix": "queroser.dev",
+  "tags": ["type:feature", "scope:learner", "side:client"],
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/learner/feature-shell/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/learner/feature-shell/**/*.ts",
+          "libs/learner/feature-shell/**/*.html"
+        ]
+      }
+    }
+  }
+}

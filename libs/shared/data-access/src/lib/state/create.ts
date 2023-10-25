@@ -18,11 +18,11 @@ export const createState = <T>(initialValue: T) => {
     )
   }
 
-  const update = (newState: Partial<T>) => {
+  const setState = (newState: Partial<T>) => {
     state.next({...state.value, ...newState})
   }
 
   const value = () => state.getValue()
 
-  return {select, pick, update, value}
+  return {select, pick, setState, value}
 }

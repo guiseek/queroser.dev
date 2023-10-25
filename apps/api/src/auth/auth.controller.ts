@@ -6,16 +6,14 @@ import {
   HttpCode,
   UseGuards,
   Controller,
-  UseInterceptors,
+  SerializeOptions,
 } from '@nestjs/common'
 import {ApiCookieAuth, ApiTags} from '@nestjs/swagger'
-import {MongooseClassSerializerInterceptor} from '../utilities'
 import {RequestWithUser} from './request-with-user.interface'
 import {LocalAuthGuard} from './local-auth.guard'
 import {RegisterDto} from './dto/register.dto'
 import {JwtAuthGuard} from './jwt-auth.guard'
 import {AuthService} from './auth.service'
-import {User} from '../users/user.schema'
 
 @ApiTags('auth')
 @ApiCookieAuth()
@@ -48,6 +46,9 @@ export class AuthController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
+  @SerializeOptions({
+    excludePrefixes: ['_'],
+  })
   authenticate(@Req() request: RequestWithUser) {
     console.log(request.user)
     return request.user

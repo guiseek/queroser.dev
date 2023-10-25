@@ -56,6 +56,7 @@ import {MatListModule} from '@angular/material/list'
     MatProgressBarModule,
     MatMenuModule,
     MatListModule,
-  ]
+  ],
+  declarations: [],
 })
 export class UiLayoutModule {}

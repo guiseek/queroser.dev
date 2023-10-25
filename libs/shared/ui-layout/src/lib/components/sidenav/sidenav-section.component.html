@@ -1,0 +1,16 @@
+<ng-container *ngIf="section">
+  <mat-expansion-panel [expanded]="section.expanded">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{section.heading}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+      <a *ngFor="let item of section.children" mat-list-item [routerLink]="item.path" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon *ngIf="item.icon" matListItemIcon>{{item.icon}}</mat-icon>
+        <span>{{item.title}}</span>
+      </a>
+    </mat-nav-list>
+  </mat-expansion-panel>
+</ng-container>

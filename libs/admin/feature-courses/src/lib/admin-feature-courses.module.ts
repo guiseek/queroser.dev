@@ -5,8 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms'
 import {MatDialogModule} from '@angular/material/dialog'
 import {adminFeatureCoursesRoutes} from './admin-feature-courses.routes'
 import {AdminFeatureCoursesContainer} from './admin-feature-courses.container'
-import {CourseListContainer, CourseDetailsContainer} from './containers'
-import {CreateCourseDialog} from './components'
+import {CourseListContainer, PlanCourseComponent, CourseDetailsContainer} from './containers'
 import {
   ConfirmActionModule,
   MaterialFormModule,
@@ -29,7 +28,7 @@ import {
     AdminFeatureCoursesContainer,
     CourseListContainer,
     CourseDetailsContainer,
-    CreateCourseDialog,
+    PlanCourseComponent,
   ],
 })
 export class AdminFeatureCoursesModule {}

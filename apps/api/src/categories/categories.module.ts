@@ -11,13 +11,11 @@ import {slugify} from '@queroser.dev/shared/util-model'
       {
         name: Category.name,
         useFactory: () => {
-          const schema = CategorySchema
-          schema.pre('save', function () {
+          // const schema = CategorySchema
+          CategorySchema.pre('save', function () {
             this.slug = slugify(this.name)
-            console.log(this)
-            console.log(this.slug)
           })
-          return schema
+          return CategorySchema
         },
       },
     ]),
